@@ -4,10 +4,13 @@ import config from '../../config.json'
 
 async function Auth (username: string, password: string): Promise<string> {
   const dbValue = JSON.parse(fs.readFileSync(`${Formarter.formatPath(config.workingPath)}/account.json`, 'utf-8'))
-  if (!JSON.stringify(dbValue).includes(username)) return 'Username not found'
   const selectedUser = dbValue.filter((userData: any) => userData[0] === username)[0]
+  if (selectedUser === undefined) return 'Username not found'
   if (selectedUser[1] === password) {
-    return 'Authorized'
+    const userIndex = dbValue.findIndex((userData: any) => userData[0] === username)
+    dbValue[userIndex][2] = Date.now()
+    fs.writeFileSync(`${Formarter.formatPath(config.workingPath)}/account.json`, JSON.stringify(dbValue))
+    return dbValue[userIndex][4]
   } else {
     return 'Unauthorized'
   }

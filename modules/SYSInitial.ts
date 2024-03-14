@@ -1,4 +1,5 @@
 import fs from 'fs'
+import MakeID from './API/MakeID'
 
 async function SYSInitial (rootPath: string): Promise<boolean | string> {
   try {
@@ -24,11 +25,12 @@ async function SYSInitial (rootPath: string): Promise<boolean | string> {
         RemoveDB,
         ReadDB,
         WriteDB,
-        ReplaceDB
+        ReplaceDB,
+        AuthCode
       ]
       */
       fs.writeFileSync(rootPath + '/account.json', JSON.stringify([
-        ['user', 'admin', null, [1,1,1,1,1]]
+        ['user', 'admin', null, [1,1,1,1,1], MakeID(18)]
       ]))
       console.log('Created account.json at ' + rootPath + '/data-store')
     } catch (error: any) {
