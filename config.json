@@ -1,3 +1,7 @@
 {
-  "workingPath": "%cwd%/data-store"
+  "workingPath": "%cwd%/data-store",
+  "API": {
+    "allowedIps": "*",
+    "postSizeLimit": "100mb"
+  }
 }
