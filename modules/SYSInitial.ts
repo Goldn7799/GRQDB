@@ -28,7 +28,7 @@ async function SYSInitial (rootPath: string): Promise<boolean | string> {
       ]
       */
       fs.writeFileSync(rootPath + '/account.json', JSON.stringify([
-        ['user', 'admin', null, []]
+        ['user', 'admin', null, [1,1,1,1,1]]
       ]))
       console.log('Created account.json at ' + rootPath + '/data-store')
     } catch (error: any) {
