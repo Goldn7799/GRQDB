@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-const SYSInitial = async (rootPath: string): Promise<boolean | string> => {
+async function SYSInitial (rootPath: string): Promise<boolean | string> {
   try {
     fs.readdirSync(rootPath, 'utf-8')
   } catch (err: any) {
