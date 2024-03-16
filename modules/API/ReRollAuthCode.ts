@@ -4,6 +4,7 @@ import config from '../../config.json'
 import MakeID from './MakeID'
 
 async function ReRollAuth (): Promise<string> {
+  const start = Date.now()
   const dbValue = JSON.parse(fs.readFileSync(`${Formarter.formatPath(config.workingPath)}/account.json`, 'utf-8'))
   let cout = 0
   dbValue.forEach(() => {
@@ -12,7 +13,8 @@ async function ReRollAuth (): Promise<string> {
   })
   try {
     fs.writeFileSync(`${Formarter.formatPath(config.workingPath)}/account.json`, JSON.stringify(dbValue))
-    return `Success ReRoll ${cout} account auth code`
+    const end = Date.now()
+    return `Success ReRoll ${cout} account auth code [${end - start}ms]`
   } catch (err: any) {
     return err
   }

@@ -7,7 +7,8 @@ interface dbStructure {
   row: string[][]
 }
 
-async function DBAdd (id: string, table: string[]): Promise<string> {
+async function AddDB (id: string, table: string[]): Promise<string> {
+  const start = Date.now()
   async function next (): Promise<string> {
     const value: dbStructure = {
       table,
@@ -15,7 +16,8 @@ async function DBAdd (id: string, table: string[]): Promise<string> {
     }
     try {
       fs.writeFileSync(`${Formarter.formatPath(config.workingPath)}/databases/${id}.json`, JSON.stringify(value))
-      return `Success Adding Database ${id}`
+      const end = Date.now()
+      return `Success Adding Database ${id} [${end - start}ms]`
     } catch (err: any) {
       return err
     }
@@ -23,7 +25,8 @@ async function DBAdd (id: string, table: string[]): Promise<string> {
   try {
     const data = fs.readFileSync(`${Formarter.formatPath(config.workingPath)}/databases/${id}.json`, 'utf-8')
     if (data.includes('"table"') && data.includes('"row"')) {
-      return 'Database ID already used'
+      const end = Date.now()
+      return `Database ID already used [${end - start}ms]`
     } else {
       return await next()
     }
@@ -32,4 +35,4 @@ async function DBAdd (id: string, table: string[]): Promise<string> {
   }
 }
 
-export default DBAdd
+export default AddDB

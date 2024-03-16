@@ -8,6 +8,7 @@ interface dbStructure {
 }
 
 async function addData (id: string, value: Record<string, string>): Promise<string> {
+  const start = Date.now()
   try {
     const dbList = fs.readdirSync(`${Formarter.formatPath(config.workingPath)}/databases`, 'utf-8')
     if (dbList.includes(`${id}.json`)) {
@@ -21,15 +22,18 @@ async function addData (id: string, value: Record<string, string>): Promise<stri
         dbValue.row.push(readyPost)
         try {
           fs.writeFileSync(`${Formarter.formatPath(config.workingPath)}/databases/${id}.json`, JSON.stringify(dbValue))
-          return `Success Write value into ${id}`
+          const end = Date.now()
+          return `Success Write value into ${id} [${end - start}ms]`
         } catch (err: any) {
           return err
         }
       } else {
-        return 'Invalid Table structure'
+        const end = Date.now()
+        return `Invalid Table structure [${end - start}ms]`
       }
     } else {
-      return 'Database not found'
+      const end = Date.now()
+      return `Database not  [${end - start}ms]`
     }
   } catch (err: any) {
     return err
@@ -37,6 +41,7 @@ async function addData (id: string, value: Record<string, string>): Promise<stri
 }
 
 async function removeData (id: string, dataId: number): Promise<string> {
+  const start = Date.now()
   try {
     const dbList = fs.readdirSync(`${Formarter.formatPath(config.workingPath)}/databases`, 'utf-8')
     if (dbList.includes(`${id}.json`)) {
@@ -44,12 +49,14 @@ async function removeData (id: string, dataId: number): Promise<string> {
       dbValue.row.splice(dataId, 1)
       try {
         fs.writeFileSync(`${Formarter.formatPath(config.workingPath)}/databases/${id}.json`, JSON.stringify(dbValue))
-        return `Success Deleting data number ${dataId} in ${id}`
+        const end = Date.now()
+        return `Success Deleting data number ${dataId} in ${id} [${end - start}ms]`
       } catch (err: any) {
         return err
       }
     } else {
-      return 'Database not found'
+      const end = Date.now()
+      return `Database not found [${start - end}ms`
     }
   } catch (err: any) {
     return err
@@ -57,6 +64,7 @@ async function removeData (id: string, dataId: number): Promise<string> {
 }
 
 async function replaceData (id: string, dataID: number, newValue: Record<string, string>): Promise<string> {
+  const start = Date.now()
   try {
     const dbList = fs.readdirSync(`${Formarter.formatPath(config.workingPath)}/databases`, 'utf-8')
     if (dbList.includes(`${id}.json`)) {
@@ -71,15 +79,18 @@ async function replaceData (id: string, dataID: number, newValue: Record<string,
         dbValue.row.splice(dataID, 1, readyPost)
         try {
           fs.writeFileSync(`${Formarter.formatPath(config.workingPath)}/databases/${id}.json`, JSON.stringify(dbValue))
-          return `Success Write new value into ${id}`
+          const end = Date.now()
+          return `Success Write new value into ${id} [${end - start}ms]`
         } catch (err: any) {
           return err
         }
       } else {
-        return 'Invalid Table structure'
+        const end = Date.now()
+        return `Invalid Table structure [${end - start}ms]`
       }
     } else {
-      return 'Database not found'
+      const end = Date.now()
+      return `Database not found [${end - start}ms]`
     }
   } catch (err: any) {
     return err

@@ -8,6 +8,7 @@ interface dbStructure {
 }
 
 async function DBRead (id: string): Promise<object[] | string> {
+  const start = Date.now()
   try {
     const dbList = fs.readdirSync(`${Formarter.formatPath(config.workingPath)}/databases`, 'utf-8')
     if (dbList.includes(`${id}.json`)) {
@@ -24,12 +25,15 @@ async function DBRead (id: string): Promise<object[] | string> {
           })
           dbValue.push(final)
         })
+        const end = Date.now()
+        console.log(`Reading ${dbValue.length} data on ${id} [${end - start}ms]`)
         return dbValue
       } catch (err: any) {
         return err
       }
     } else {
-      return 'Database not found'
+      const end = Date.now()
+      return `Database not found [${end - start}ms]`
     }
   } catch (err: any) {
     return err
