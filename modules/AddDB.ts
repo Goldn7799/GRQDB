@@ -4,7 +4,7 @@ import config from '../config.json'
 
 interface dbStructure {
   table: string[]
-  row: string[][]
+  row: Array<Array<string | number>>
 }
 
 async function AddDB (id: string, table: string[]): Promise<string> {

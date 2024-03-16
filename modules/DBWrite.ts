@@ -4,10 +4,10 @@ import config from '../config.json'
 
 interface dbStructure {
   table: string[]
-  row: string[][]
+  row: Array<Array<string | number>>
 }
 
-async function addData (id: string, value: Record<string, string>): Promise<string> {
+async function addData (id: string, value: Record<string, string | number>): Promise<string> {
   const start = Date.now()
   try {
     const dbList = fs.readdirSync(`${Formarter.formatPath(config.workingPath)}/databases`, 'utf-8')
@@ -15,7 +15,7 @@ async function addData (id: string, value: Record<string, string>): Promise<stri
       const dbValue: dbStructure = JSON.parse(fs.readFileSync(`${Formarter.formatPath(config.workingPath)}/databases/${id}.json`, 'utf-8'))
       const valueTable: string[] = Object.keys(value)
       if (JSON.stringify(valueTable) === JSON.stringify(dbValue.table)) {
-        const readyPost: string[] = []
+        const readyPost: Array<string | number> = []
         valueTable.forEach((table) => {
           readyPost.push(value[table])
         })
@@ -63,7 +63,7 @@ async function removeData (id: string, dataId: number): Promise<string> {
   }
 }
 
-async function replaceData (id: string, dataID: number, newValue: Record<string, string>): Promise<string> {
+async function replaceData (id: string, dataID: number, newValue: Record<string, string | number>): Promise<string> {
   const start = Date.now()
   try {
     const dbList = fs.readdirSync(`${Formarter.formatPath(config.workingPath)}/databases`, 'utf-8')
@@ -72,7 +72,7 @@ async function replaceData (id: string, dataID: number, newValue: Record<string,
       const valueTable: string[] = Object.keys(newValue)
       if (dbValue.row.length < dataID) return 'Invalid dataID'
       if (JSON.stringify(valueTable) === JSON.stringify(dbValue.table)) {
-        const readyPost: string[] = []
+        const readyPost: Array<string | number> = []
         valueTable.forEach((table) => {
           readyPost.push(newValue[table])
         })

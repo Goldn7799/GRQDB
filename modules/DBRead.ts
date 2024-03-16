@@ -4,7 +4,7 @@ import config from '../config.json'
 
 interface dbStructure {
   table: string[]
-  row: string[][]
+  row: Array<Array<string | number>>
 }
 
 async function DBRead (id: string): Promise<object[] | string> {
@@ -16,7 +16,7 @@ async function DBRead (id: string): Promise<object[] | string> {
         const dbRawValue: dbStructure = JSON.parse(fs.readFileSync(`${Formarter.formatPath(config.workingPath)}/databases/${id}.json`, 'utf-8'))
         const dbValue: object[] = []
         dbRawValue.row.forEach((value) => {
-          type finalType = Record<string, string>
+          type finalType = Record<string, string | number>
           const final: finalType = {}
           let cout: number = 0
           dbRawValue.table.forEach((table) => {
