@@ -33,7 +33,7 @@ async function addData (id: string, value: Record<string, string | number>): Pro
       }
     } else {
       const end = Date.now()
-      return `Database not  [${end - start}ms]`
+      return `Database not found [${end - start}ms]`
     }
   } catch (err: any) {
     return err
