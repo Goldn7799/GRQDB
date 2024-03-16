@@ -37,7 +37,7 @@ app.post('/database/manage/:id', (req, res) => {
   const { auth, table } = req.body
   if ((typeof (auth) !== 'string' || auth === undefined || auth === '') || (typeof (id) !== 'string' || id === undefined || id === '') || (typeof (table) !== 'object' || table === undefined || table.length <= 1)) return res.sendStatus(400)
   const Rauth: string = auth
-  UserAccount.checkPermission(Rauth, [1, 0, 0, 0, 0]).then((response) => {
+  UserAccount.checkPermission(Rauth, [1, 0, 0, 0, 0, 0]).then((response) => {
     if (response.includes('Authorized')) {
       const Rid: string = id
       const Rtable: string[] = table
@@ -61,7 +61,7 @@ app.delete('/database/manage/:id', (req, res) => {
   const { auth } = req.body
   if ((typeof (id) !== 'string' || id === undefined || id === '') || (typeof (auth) !== 'string' || auth === undefined || auth.length <= 1)) return res.sendStatus(400)
   const Rauth: string = auth
-  UserAccount.checkPermission(Rauth, [1, 0, 0, 0, 0]).then((response) => {
+  UserAccount.checkPermission(Rauth, [0, 1, 0, 0, 0, 0]).then((response) => {
     if (response.includes('Authorized')) {
       const Rid: string = id
       RemoveDB(Rid).then((response) => {
@@ -83,7 +83,7 @@ app.get('/database/action/:id/:auth', (req, res) => {
   const { id, auth } = req.params
   if ((typeof (id) !== 'string' || id === undefined || id === '') || (typeof (auth) !== 'string' || auth === undefined || auth.length <= 1)) return res.sendStatus(400)
   const Rauth: string = auth
-  UserAccount.checkPermission(Rauth, [1, 0, 0, 0, 0]).then((response) => {
+  UserAccount.checkPermission(Rauth, [0, 0, 1, 0, 0, 0]).then((response) => {
     if (response.includes('Authorized')) {
       const Rid: string = id
       DBRead(Rid).then((response) => {
@@ -106,7 +106,7 @@ app.post('/database/action/:id', (req, res) => {
   const { auth, value } = req.body
   if ((typeof (id) !== 'string' || id === undefined || id === '') || (typeof (auth) !== 'string' || auth === undefined || auth.length <= 1) || (typeof (value) !== 'object' || value === undefined)) return res.sendStatus(400)
   const Rauth: string = auth
-  UserAccount.checkPermission(Rauth, [1, 0, 0, 0, 0]).then((response) => {
+  UserAccount.checkPermission(Rauth, [0, 0, 0, 1, 0, 0]).then((response) => {
     if (response.includes('Authorized')) {
       const Rid: string = id
       const Rvalue: Record<string, string | number> = value
@@ -131,7 +131,7 @@ app.put('/database/action/:id', (req, res) => {
   const { auth, newValue, dataId } = req.body
   if ((typeof (id) !== 'string' || id === undefined || id.length <= 0) || (typeof (auth) !== 'string' || auth === undefined || auth.length <= 1) || (typeof (newValue) !== 'object' || newValue === undefined) || (typeof (dataId) !== 'number' || dataId === undefined)) return res.sendStatus(400)
   const Rauth: string = auth
-  UserAccount.checkPermission(Rauth, [1, 0, 0, 0, 0]).then((response) => {
+  UserAccount.checkPermission(Rauth, [0, 0, 0, 0, 1, 0]).then((response) => {
     if (response.includes('Authorized')) {
       const Rid: string = id
       const RdataId: number = dataId
@@ -157,7 +157,7 @@ app.delete('/database/action/:id', (req, res) => {
   const { auth, dataId } = req.body
   if ((typeof (id) !== 'string' || id === undefined || id === '') || (typeof (auth) !== 'string' || auth === undefined || auth.length <= 1) || (typeof (dataId) !== 'number' || dataId === undefined)) return res.sendStatus(400)
   const Rauth: string = auth
-  UserAccount.checkPermission(Rauth, [1, 0, 0, 0, 0]).then((response) => {
+  UserAccount.checkPermission(Rauth, [0, 0, 0, 0, 0, 1]).then((response) => {
     if (response.includes('Authorized')) {
       const Rid: string = id
       const RdataId: number = dataId
