@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/Goldn7799/GRQDB#readme",
   "devDependencies": {
-    "@types/bun": "latest",
+    "@types/bun": "^1.0.11",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
     "eslint": "^8.0.1",
     "eslint-config-standard-with-typescript": "^43.0.1",

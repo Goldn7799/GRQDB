@@ -25,12 +25,11 @@ async function SYSInitial (rootPath: string): Promise<boolean | string> {
         RemoveDB,
         DBRead,
         DBWrite,
-        DBReplace,
         DBDelete
       ]
       */
       fs.writeFileSync(rootPath + '/account.json', JSON.stringify([
-        ['user', 'admin', null, [1, 1, 1, 1, 1, 1], MakeID(18)]
+        ['user', 'admin', null, [1, 1, 1, 1, 1], MakeID(18)]
       ]))
       console.log('Created account.json at ' + rootPath + '/data-store')
     } catch (error: any) {

@@ -97,10 +97,48 @@ async function replaceData (id: string, dataID: number, newValue: Record<string,
   }
 }
 
+async function editData (id: string, dataID: number, newValue: Record<string, string | number>): Promise<string> {
+  const start = Date.now()
+  try {
+    const dbList = fs.readdirSync(`${Formarter.formatPath(config.workingPath)}/databases`, 'utf-8')
+    if (dbList.includes(`${id}.json`)) {
+      const dbValue: dbStructure = JSON.parse(fs.readFileSync(`${Formarter.formatPath(config.workingPath)}/databases/${id}.json`, 'utf-8'))
+      const valueTable: string[] = Object.keys(newValue)
+      if (dbValue.row.length < dataID) return 'Invalid dataID'
+      let tableCheckPass: boolean = true
+      valueTable.forEach((keys) => {
+        if (!dbValue.table.includes(keys)) {
+          tableCheckPass = false
+        }
+      })
+      if (!tableCheckPass) return 'Invalid Table Structure'
+      const currentData: Array<string | number> = dbValue.row[dataID]
+      valueTable.forEach((table) => {
+        const index = dbValue.table.findIndex((keys) => keys === table)
+        currentData[index] = newValue[table]
+      })
+      dbValue.row.splice(dataID, 1, currentData)
+      try {
+        fs.writeFileSync(`${Formarter.formatPath(config.workingPath)}/databases/${id}.json`, JSON.stringify(dbValue))
+        const end = Date.now()
+        return `Success Write new value into ${id} [${end - start}ms]`
+      } catch (err: any) {
+        return err
+      }
+    } else {
+      const end = Date.now()
+      return `Database not found [${end - start}ms]`
+    }
+  } catch (err: any) {
+    return err
+  }
+}
+
 const DBWrite = {
   addData,
   removeData,
-  replaceData
+  replaceData,
+  editData
 }
 
 export default DBWrite

@@ -15,7 +15,7 @@ async function getAccount (AuthCode: string): Promise<userType> {
 }
 
 async function checkPermission (AuthCode: string, requiredPermission: number[]): Promise<string> {
-  if (requiredPermission.length !== 6) return 'Invalid Required Permission'
+  if (requiredPermission.length !== 5) return 'Invalid Required Permission'
   let pass: boolean = true
   const user: userType = await getAccount(AuthCode)
   if (typeof (user) === 'object') {
