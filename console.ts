@@ -26,6 +26,10 @@ const temporary: temporaryS = {
 SYSInitial(Formarter.formatPath(config.workingPath)).then(() => { login() }).catch(() => {})
 
 function login (): any {
+  console.log('------[ WELCOME ]------')
+  console.log('|> GRQDB [ V1.0 ]')
+  console.log('-----------------------')
+  console.log('')
   rl.question('Password : ', (password) => {
     const account = JSON.parse(fs.readFileSync(`${root}/account.json`, 'utf-8'))
     if (password === account[0][1]) {
@@ -147,6 +151,10 @@ function terminal (): any {
             } else { }
           }
         }
+        break
+      case 'exit':
+        rl.close()
+        console.log('Good Bye..')
         break
       default:
         console.log(`command not found : ${command}`)
