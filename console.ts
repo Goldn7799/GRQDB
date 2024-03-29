@@ -70,7 +70,7 @@ function terminal (): any {
           }
         }
         break
-      case 'listdb':
+      case 'list':
         listDB().forEach((db) => {
           if (db.includes('.json')) console.log(db.replace('.json', ''))
         })
@@ -97,6 +97,7 @@ function terminal (): any {
           console.log('Usage : remove <database id>')
           terminal()
         } else {
+          if (temporary.db === option[0]) temporary.db = 'root'
           RemoveDB(option[0]).then((res) => {
             console.log(res)
             terminal()
