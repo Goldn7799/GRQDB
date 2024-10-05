@@ -5,7 +5,7 @@
   "main": "index.ts",
   "type": "module",
   "scripts": {
-    "start": "bun index.ts",
+    "start": "bun console.ts",
     "test": "bun run eslint index.ts && bun run eslint ./modules/*",
     "testnfix": "bun run eslint index.ts --fix && bun run eslint ./modules/* --fix"
   },

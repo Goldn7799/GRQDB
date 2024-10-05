@@ -42,6 +42,10 @@ async function addData (id: string, value: Record<string, string | number>): Pro
 
 async function removeData (id: string, dataId: number): Promise<string> {
   const start = Date.now()
+  if (isNaN(dataId)) {
+    const end = Date.now()
+    return `invalid NaN dataId [${start - end}ms]`
+  };
   try {
     const dbList = fs.readdirSync(`${Formarter.formatPath(config.workingPath)}/databases`, 'utf-8')
     if (dbList.includes(`${id}.json`)) {
@@ -56,7 +60,7 @@ async function removeData (id: string, dataId: number): Promise<string> {
       }
     } else {
       const end = Date.now()
-      return `Database not found [${start - end}ms`
+      return `Database not found [${start - end}ms]`
     }
   } catch (err: any) {
     return err
@@ -65,6 +69,10 @@ async function removeData (id: string, dataId: number): Promise<string> {
 
 async function replaceData (id: string, dataID: number, newValue: Record<string, string | number>): Promise<string> {
   const start = Date.now()
+  if (isNaN(dataID)) {
+    const end = Date.now()
+    return `invalid NaN dataId [${start - end}ms]`
+  };
   try {
     const dbList = fs.readdirSync(`${Formarter.formatPath(config.workingPath)}/databases`, 'utf-8')
     if (dbList.includes(`${id}.json`)) {
@@ -99,6 +107,10 @@ async function replaceData (id: string, dataID: number, newValue: Record<string,
 
 async function editData (id: string, dataID: number, newValue: Record<string, string | number>): Promise<string> {
   const start = Date.now()
+  if (isNaN(dataID)) {
+    const end = Date.now()
+    return `invalid NaN dataId [${start - end}ms]`
+  };
   try {
     const dbList = fs.readdirSync(`${Formarter.formatPath(config.workingPath)}/databases`, 'utf-8')
     if (dbList.includes(`${id}.json`)) {

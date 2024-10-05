@@ -6,6 +6,7 @@ import config from './config.json'
 import AddDB from './modules/AddDB'
 import DBRead from './modules/DBRead'
 import RemoveDB from './modules/RemoveDB'
+import DBWrite from './modules/DBWrite'
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -83,7 +84,7 @@ function terminal (): any {
       case 'add':
         if (`${option[0]}` === '' || `${option[0]}0` === 'undefined0' || `${option[1]}` === '' || `${option[1]}0` === 'undefined0') {
           console.log('Usage : add <database id> <table>')
-          console.log('Table Example : username;timestamp;')
+          console.log('Table Example : username;timestamp;password')
           terminal()
         } else {
           const table: string[] = option[1].split(';')
@@ -145,12 +146,103 @@ function terminal (): any {
             console.log(`Database ${temporary.db} Not Found`)
             terminal()
           } else {
-            if (`${option[0]}` === '' || `${option[0]}0` === 'undefined0' || `${option[1]}` === '' || `${option[1]}0` === 'undefined0') {
-              console.log('Usage : write [add|del] <value> <id(for del, edit, and replace)>')
+            const theValue: string = `${command}`.replaceAll(`${prefix} ${option[0]} `, '')
+            const theValueThree: string = `${theValue}`.replaceAll(` ${option[option.length - 1]}`, '')
+            if ((`${option[0]}` === '' || `${option[0]}0` === 'undefined0' || `${theValue}` === '' || `${theValue}0` === 'undefined0')) {
+              console.log('Usage : write [add|del|edit|replace] <JSON or id of table for del option> <id(for edit, and replace)>')
               terminal()
-            } else { }
+            } else {
+              if (temporary.db === 'root') {
+                listDB().forEach((db) => {
+                  if (db.includes('.json')) console.log(db.replace('.json', ''))
+                })
+                console.log("To write inside database, first use 'use <database id>' command")
+                terminal()
+              } else if (!checkDB(temporary.db)) {
+                console.log(`Database ${temporary.db} Not Found`)
+                terminal()
+              } else {
+                if (`${option[0]}` === 'add') {
+                  if (!`${option[option.length - 1]}`.includes('}')) {
+                    console.log("add option didn't use 3rd option")
+                    terminal()
+                  } else {
+                    try {
+                      const value: Record<string, string | number> = JSON.parse(`${theValue}`)
+                      DBWrite.addData(temporary.db, value).then((res) => {
+                        console.log(res)
+                        terminal()
+                      }).catch((err: any) => {
+                        console.log(err)
+                        terminal()
+                      })
+                    } catch {
+                      console.log('Try using valid JSON data. Example {"lorem": "ipsum"}')
+                      terminal()
+                    }
+                  }
+                } else if (`${option[0]}` === 'del') {
+                  DBWrite.removeData(temporary.db, Number(option[1])).then((res) => {
+                    console.log(res)
+                    terminal()
+                  }).catch((err: any) => {
+                    console.log(err)
+                    terminal()
+                  })
+                } else if (`${option[0]}` === 'edit') {
+                  if (`${option[option.length - 1]}`.includes('}')) {
+                    console.log('please insert Data ID')
+                    terminal()
+                  } else {
+                    try {
+                      const value: Record<string, string | number> = JSON.parse(`${theValueThree}`)
+                      DBWrite.editData(temporary.db, Number(option[option.length - 1]), value).then((res) => {
+                        console.log(res)
+                        terminal()
+                      }).catch((err: any) => {
+                        console.log(err)
+                        terminal()
+                      })
+                    } catch {
+                      console.log('Try using valid JSON data. Example {"lorem": "ipsum"}')
+                      terminal()
+                    }
+                  }
+                } else if (`${option[0]}` === 'replace') {
+                  if (`${option[option.length - 1]}`.includes('}')) {
+                    console.log('please insert Data ID')
+                    terminal()
+                  } else {
+                    try {
+                      const value: Record<string, string | number> = JSON.parse(`${theValueThree}`)
+                      DBWrite.replaceData(temporary.db, Number(option[option.length - 1]), value).then((res) => {
+                        console.log(res)
+                        terminal()
+                      }).catch((err: any) => {
+                        console.log(err)
+                        terminal()
+                      })
+                    } catch {
+                      console.log('Try using valid JSON data. Example {"lorem": "ipsum"}')
+                      terminal()
+                    }
+                  }
+                }
+              }
+            }
           }
         }
+        break
+      case 'help':
+        console.log(`
+          use <database id> - To Select Database
+          list - To list avaiable Database
+          add <database id> <table> - To create a New Database
+          remove - To Remove Database
+          read - To show data in selected Database
+          write
+        `)
+        terminal()
         break
       case 'exit':
         rl.close()
