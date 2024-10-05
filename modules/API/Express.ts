@@ -202,6 +202,8 @@ app.delete('/database/action/:id', (req, res) => {
   })
 })
 
-app.listen(8080, () => {
-  console.log('listen to port 8080')
-})
+if (config.express === true) {
+  app.listen(8080, () => {
+    console.log('listen to port 8080')
+  })
+}

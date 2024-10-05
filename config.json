@@ -3,5 +3,6 @@
   "API": {
     "allowedIps": "*",
     "postSizeLimit": "100mb"
-  }
+  },
+  "express": true
 }
