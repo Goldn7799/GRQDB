@@ -7,6 +7,9 @@ import AddDB from './modules/AddDB'
 import DBRead from './modules/DBRead'
 import RemoveDB from './modules/RemoveDB'
 import DBWrite from './modules/DBWrite'
+import ReRollAuth from './modules/API/ReRollAuthCode'
+import DelAccount from './modules/API/DelAccount'
+import AddAccount from './modules/API/AddAccount'
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -235,6 +238,63 @@ function terminal (): void {
           }
         }
         break
+      case 'addacc':
+        if (`${option[0]}` === '' || `${option[0]}0` === 'undefined0' || `${option[1]}` === '' || `${option[1]}0` === 'undefined0' || `${option[2]}` === '' || `${option[2]}0` === 'undefined0') {
+          console.log('Usage : addacc <username> <password> <permission [medium|high|low]>')
+          terminal()
+        } else {
+          let permission: 'low' | 'medium' | 'high' = 'low'
+          const next = () => {
+            AddAccount(`${option[0]}`, `${option[1]}`, permission).then((log) => {
+              console.log(log)
+              terminal()
+            }).catch((err) => {
+              console.log(err)
+              terminal()
+            })
+          }
+          if (`${option[2].toLocaleLowerCase()}` === 'low') {
+            permission = 'low'
+            next()
+          } else if (`${option[2].toLocaleLowerCase()}` === 'medium') {
+            permission = 'medium'
+            next()
+          } else if (`${option[2].toLocaleLowerCase()}` === 'high') {
+            permission = 'high'
+            next()
+          } else {
+            console.log('Please select permission (low|medium|high)')
+            terminal()
+          }
+        }
+        break
+      case 'delacc':
+        if (`${option[0]}` === '' || `${option[0]}0` === 'undefined0') {
+          console.log('Usage : delacc <username>')
+          terminal()
+        } else {
+          DelAccount(`${option[0]}`).then((log) => {
+            console.log(log)
+            terminal()
+          }).catch((err) => {
+            console.log(err)
+            terminal()
+          })
+        }
+        break
+      case 'rerollacc':
+        ReRollAuth().then((log) => {
+          console.log(log)
+          terminal()
+        }).catch((err) => {
+          console.log(err)
+          terminal()
+        })
+        break
+      case 'accdata':
+        console.log(JSON.parse(fs.readFileSync(`${Formarter.formatPath(config.workingPath)}/account.json`, 'utf-8')))
+        terminal()
+        break
       case 'help':
         console.log(`
           use <database id> - To Select Database
@@ -243,6 +303,10 @@ function terminal (): void {
           remove - To Remove Database
           read - To show data in selected Database
           write write [add|del|edit|replace] <JSON|id> <data id> - for edit data on database
+          accdata - show users data on API Account
+          addacc <username> <password> <permission [medium|high|low]> - to create new User for API
+          delacc <username> - to delete user on API Account
+          rerollacc - to re roll Auth Code for all API Account
         `)
         terminal()
         break

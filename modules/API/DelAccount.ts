@@ -4,6 +4,7 @@ import config from '../../config.json'
 
 async function DelAccount (username: string): Promise<string> {
   let dbValue = JSON.parse(fs.readFileSync(`${Formarter.formatPath(config.workingPath)}/account.json`, 'utf-8'))
+  if (username.includes(dbValue[0][0])) return 'You cant delete Root Account'
   if (!JSON.stringify(dbValue).includes(username)) return 'Username not found'
   dbValue = dbValue.filter((userData: Array<string | number | number[]>) => userData[0] !== username)
   try {
