@@ -227,6 +227,8 @@ function terminal (): any {
                       terminal()
                     }
                   }
+                } else {
+                  console.log('Please Select option add, del, edit or replace')
                 }
               }
             }
