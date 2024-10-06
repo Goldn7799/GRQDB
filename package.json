@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "bun console.ts",
+    "startserver": "bun index.ts",
     "test": "bun run eslint index.ts && bun run eslint console.ts && bun run eslint ./modules/*",
     "testnfix": "bun run eslint index.ts --fix && bun run eslint console.ts --fix && bun run eslint ./modules/* --fix"
   },

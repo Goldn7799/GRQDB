@@ -19,6 +19,16 @@ npm i https://github.com/Goldn7799/GRQDB.git
 bun add git+https://github.com/Goldn7799/GRQDB.git
 ```
 
+### Run A CLI
+```
+bun run start
+```
+### Run A Express Server
+First enable Express on config.json
+```
+bun run startserver
+```
+
 ## How to use code
 **Adding A New Database**
 ```ts
@@ -55,7 +65,7 @@ GRQDB.DBRead('newDatabase')
 GRQDB.DBWrite.addData(IdDatabase (string), TheData (object))
 
 # Example
-GRQDB.DBWrite.addData('newDatabase', {id: 001, name: 'lorem', password: 'urmother3321'})
+GRQDB.DBWrite.addData('newDatabase', {id: 101, name: 'lorem', password: 'urmother3321'})
 ```
 **- Remove A Data**
 ```ts
@@ -73,7 +83,7 @@ GRQDB.DBWrite.removeData('newDatabase', 0)
 GRQDB.DBWrite.editData(IdDatabase (string), IdData (number), NewValue (object))
 
 # Example
-GRQDB.DBWrite.editData('newDatabase', 0, {id: 005})
+GRQDB.DBWrite.editData('newDatabase', 0, {id: 105})
 ```
 **- Replace A Data**
 ```ts
@@ -82,5 +92,75 @@ GRQDB.DBWrite.editData('newDatabase', 0, {id: 005})
 GRQDB.DBWrite.replaceData(IdDatabase (string), IdData (number), NewValue (object))
 
 # Example
-GRQDB.DBWrite.replaceData('newDatabase', 0, {id: 041, name: 'lorem ipsum', password: 'urfather3321'})
+GRQDB.DBWrite.replaceData('newDatabase', 0, {id: 141, name: 'lorem ipsum', password: 'urfather3321'})
+```
+
+## Use API Instead Syntax
+Default Host on config is http://localhost:8080
+#### [JSON Format]
+**Login to get Credential**
+> (host)/login [POST]
+```json
+{
+  "username": "user",
+  "password": "admin"
+}
+```
+
+**Add A Database**
+> (host)/database/manage/(Database ID) [POST]
+```json
+{
+  "auth": "pwPH67WhBsG7n8ZwBJ",
+  "table": ["id", "username", "password"]
+}
+```
+
+**Remove A Database**
+> (host)/database/manage/(Database ID) [DELETE]
+```json
+{
+  "auth": "pwPH67WhBsG7n8ZwBJ"
+}
+```
+
+**Get data on Database**
+> (host)/database/action/(Database ID)/(AUTH Code) [GET]
+
+**Add data on Database**
+> (host)/database/action/(Database ID) [POST]
+```json
+{
+  "auth": "pwPH67WhBsG7n8ZwBJ",
+  "value": {"id": 101, "username": "lorem", "password": "urmother3321"}
+}
+```
+
+**Delete data on Database**
+> (host)/database/action/(Database ID) [DELETE]
+```json
+{
+  "auth": "pwPH67WhBsG7n8ZwBJ",
+  "dataId": 0
+}
+```
+
+**Edit data on Database**
+> (host)/database/action/(Database ID) [PATCH]
+```json
+{
+  "auth": "pwPH67WhBsG7n8ZwBJ",
+  "newValue": {"username": "lorem ipsum", "password": "urfather3321"},
+  "dataId": 0
+}
+```
+
+**Replace data on Database**
+> (host)/database/action/(Database ID) [PUT]
+```json
+{
+  "auth": "pwPH67WhBsG7n8ZwBJ",
+  "newValue": {"id": 104, "username": "lorem dolor", "password": "ilikeurmother3321"},
+  "dataId": 0
+}
 ```
