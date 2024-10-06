@@ -24,8 +24,8 @@ async function addData (id: string, value: Record<string, string | number>): Pro
           fs.writeFileSync(`${Formarter.formatPath(config.workingPath)}/databases/${id}.json`, JSON.stringify(dbValue))
           const end = Date.now()
           return `Success Write value into ${id} [${end - start}ms]`
-        } catch (err: any) {
-          return err
+        } catch (err) {
+          return `${err}`
         }
       } else {
         const end = Date.now()
@@ -35,8 +35,8 @@ async function addData (id: string, value: Record<string, string | number>): Pro
       const end = Date.now()
       return `Database not found [${end - start}ms]`
     }
-  } catch (err: any) {
-    return err
+  } catch (err) {
+    return `${err}`
   }
 }
 
@@ -55,15 +55,15 @@ async function removeData (id: string, dataId: number): Promise<string> {
         fs.writeFileSync(`${Formarter.formatPath(config.workingPath)}/databases/${id}.json`, JSON.stringify(dbValue))
         const end = Date.now()
         return `Success Deleting data number ${dataId} in ${id} [${end - start}ms]`
-      } catch (err: any) {
-        return err
+      } catch (err) {
+        return `${err}`
       }
     } else {
       const end = Date.now()
       return `Database not found [${start - end}ms]`
     }
-  } catch (err: any) {
-    return err
+  } catch (err) {
+    return `${err}`
   }
 }
 
@@ -89,8 +89,8 @@ async function replaceData (id: string, dataID: number, newValue: Record<string,
           fs.writeFileSync(`${Formarter.formatPath(config.workingPath)}/databases/${id}.json`, JSON.stringify(dbValue))
           const end = Date.now()
           return `Success Write new value into ${id} [${end - start}ms]`
-        } catch (err: any) {
-          return err
+        } catch (err) {
+          return `${err}`
         }
       } else {
         const end = Date.now()
@@ -100,8 +100,8 @@ async function replaceData (id: string, dataID: number, newValue: Record<string,
       const end = Date.now()
       return `Database not found [${end - start}ms]`
     }
-  } catch (err: any) {
-    return err
+  } catch (err) {
+    return `${err}`
   }
 }
 
@@ -134,15 +134,15 @@ async function editData (id: string, dataID: number, newValue: Record<string, st
         fs.writeFileSync(`${Formarter.formatPath(config.workingPath)}/databases/${id}.json`, JSON.stringify(dbValue))
         const end = Date.now()
         return `Success Write new value into ${id} [${end - start}ms]`
-      } catch (err: any) {
-        return err
+      } catch (err) {
+        return `${err}`
       }
     } else {
       const end = Date.now()
       return `Database not found [${end - start}ms]`
     }
-  } catch (err: any) {
-    return err
+  } catch (err) {
+    return `${err}`
   }
 }
 

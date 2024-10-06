@@ -15,8 +15,8 @@ async function ReRollAuth (): Promise<string> {
     fs.writeFileSync(`${Formarter.formatPath(config.workingPath)}/account.json`, JSON.stringify(dbValue))
     const end = Date.now()
     return `Success ReRoll ${cout} account auth code [${end - start}ms]`
-  } catch (err: any) {
-    return err
+  } catch (err) {
+    return `${err}`
   }
 }
 

@@ -1,4 +1,4 @@
-const formatPath = (text: any): string => {
+const formatPath = (text: string): string => {
   return `${text}`.replaceAll('%cwd%', process.cwd())
 }
 

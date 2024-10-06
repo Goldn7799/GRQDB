@@ -6,7 +6,7 @@ type userType = string | Array<string | number | number[]>
 
 async function getAccount (AuthCode: string): Promise<userType> {
   const dbValue = JSON.parse(fs.readFileSync(`${Formarter.formatPath(config.workingPath)}/account.json`, 'utf-8'))
-  const user = dbValue.filter((user: any) => user[4] === AuthCode)
+  const user = dbValue.filter((user: Array<string | number | number[]>) => user[4] === AuthCode)
   if (user.length >= 1) {
     return user[0]
   } else {

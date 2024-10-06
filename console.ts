@@ -26,7 +26,7 @@ const temporary: temporaryS = {
 
 SYSInitial(Formarter.formatPath(config.workingPath)).then(() => { login() }).catch(() => {})
 
-function login (): any {
+function login (): void {
   console.log('------[ WELCOME ]------')
   console.log('|> GRQDB [ V1.0 ]')
   console.log('-----------------------')
@@ -53,7 +53,7 @@ function listDB (): string[] {
   return fs.readdirSync(`${root}/databases`, 'utf-8')
 }
 
-function terminal (): any {
+function terminal (): void {
   rl.question(`${temporary.username}@${temporary.db} => `, (command) => {
     const prefix: string = command.split(' ')[0]
     const option: string[] = command.split(' ')
@@ -91,8 +91,8 @@ function terminal (): any {
           AddDB(option[0], table).then((res) => {
             console.log(res)
             terminal()
-          }).catch((err: any) => {
-            console.log(err)
+          }).catch((err) => {
+            console.log(`${err}`)
             terminal()
           })
         }
@@ -106,8 +106,8 @@ function terminal (): any {
           RemoveDB(option[0]).then((res) => {
             console.log(res)
             terminal()
-          }).catch((err: any) => {
-            console.log(err)
+          }).catch((err) => {
+            console.log(`${err}`)
             terminal()
           })
         }
@@ -127,8 +127,8 @@ function terminal (): any {
             DBRead(temporary.db).then((res) => {
               console.log(res)
               terminal()
-            }).catch((err: any) => {
-              console.log(err)
+            }).catch((err) => {
+              console.log(`${err}`)
               terminal()
             })
           }
@@ -172,8 +172,8 @@ function terminal (): any {
                       DBWrite.addData(temporary.db, value).then((res) => {
                         console.log(res)
                         terminal()
-                      }).catch((err: any) => {
-                        console.log(err)
+                      }).catch((err) => {
+                        console.log(`${err}`)
                         terminal()
                       })
                     } catch {
@@ -185,8 +185,8 @@ function terminal (): any {
                   DBWrite.removeData(temporary.db, Number(option[1])).then((res) => {
                     console.log(res)
                     terminal()
-                  }).catch((err: any) => {
-                    console.log(err)
+                  }).catch((err) => {
+                    console.log(`${err}`)
                     terminal()
                   })
                 } else if (`${option[0]}` === 'edit') {
@@ -199,8 +199,8 @@ function terminal (): any {
                       DBWrite.editData(temporary.db, Number(option[option.length - 1]), value).then((res) => {
                         console.log(res)
                         terminal()
-                      }).catch((err: any) => {
-                        console.log(err)
+                      }).catch((err) => {
+                        console.log(`${err}`)
                         terminal()
                       })
                     } catch {
@@ -218,8 +218,8 @@ function terminal (): any {
                       DBWrite.replaceData(temporary.db, Number(option[option.length - 1]), value).then((res) => {
                         console.log(res)
                         terminal()
-                      }).catch((err: any) => {
-                        console.log(err)
+                      }).catch((err) => {
+                        console.log(`${err}`)
                         terminal()
                       })
                     } catch {
@@ -242,7 +242,7 @@ function terminal (): any {
           add <database id> <table> - To create a New Database
           remove - To Remove Database
           read - To show data in selected Database
-          write
+          write write [add|del|edit|replace] <JSON|id> <data id> - for edit data on database
         `)
         terminal()
         break

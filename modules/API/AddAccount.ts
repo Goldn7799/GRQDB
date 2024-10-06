@@ -11,8 +11,8 @@ async function AddAccount (username: string, password: string, permission: 'low'
   try {
     fs.writeFileSync(`${Formarter.formatPath(config.workingPath)}/account.json`, JSON.stringify(dbValue))
     return `Success Adding new User ${username}`
-  } catch (err: any) {
-    return err
+  } catch (err) {
+    return `${err}`
   }
 }
 

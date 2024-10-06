@@ -11,15 +11,15 @@ async function RemoveDB (id: string): Promise<string> {
         fs.rmSync(`${Formarter.formatPath(config.workingPath)}/databases/${id}.json`)
         const end = Date.now()
         return `Success Removing database ${id} [${end - start}ms]`
-      } catch (err: any) {
-        return err
+      } catch (err) {
+        return `${err}`
       }
     } else {
       const end = Date.now()
       return `Database not found [${end - start}ms]`
     }
-  } catch (err: any) {
-    return err
+  } catch (err) {
+    return `${err}`
   }
 }
 

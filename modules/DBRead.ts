@@ -28,15 +28,15 @@ async function DBRead (id: string): Promise<object[] | string> {
         const end = Date.now()
         console.log(`Reading ${dbValue.length} data on ${id} [${end - start}ms]`)
         return dbValue
-      } catch (err: any) {
-        return err
+      } catch (err) {
+        return `${err}`
       }
     } else {
       const end = Date.now()
       return `Database not found [${end - start}ms]`
     }
-  } catch (err: any) {
-    return err
+  } catch (err) {
+    return `${err}`
   }
 }
 

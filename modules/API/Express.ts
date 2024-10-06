@@ -17,7 +17,7 @@ app.use(bodyParser.json({
   limit: config.API.postSizeLimit
 }))
 
-app.post('/login', (req: any, res: any) => {
+app.post('/login', (req, res) => {
   const { password, username } = req.body
   if ((typeof (username) !== 'string' || username === undefined || username === '') || (typeof (password) !== 'string' || password === undefined || password === '')) return res.sendStatus(400)
   const Rusername: string = username
@@ -32,7 +32,7 @@ app.post('/login', (req: any, res: any) => {
   })
 })
 
-app.post('/database/manage/:id', (req: any, res: any) => {
+app.post('/database/manage/:id', (req, res) => {
   const { id } = req.params
   const { auth, table } = req.body
   if ((typeof (auth) !== 'string' || auth === undefined || auth === '') || (typeof (id) !== 'string' || id === undefined || id === '') || (typeof (table) !== 'object' || table === undefined || table.length <= 1)) return res.sendStatus(400)
@@ -56,7 +56,7 @@ app.post('/database/manage/:id', (req: any, res: any) => {
   })
 })
 
-app.delete('/database/manage/:id', (req: any, res: any) => {
+app.delete('/database/manage/:id', (req, res) => {
   const { id } = req.params
   const { auth } = req.body
   if ((typeof (id) !== 'string' || id === undefined || id === '') || (typeof (auth) !== 'string' || auth === undefined || auth.length <= 1)) return res.sendStatus(400)
@@ -79,7 +79,7 @@ app.delete('/database/manage/:id', (req: any, res: any) => {
   })
 })
 
-app.get('/database/action/:id/:auth', (req: any, res: any) => {
+app.get('/database/action/:id/:auth', (req, res) => {
   const { id, auth } = req.params
   if ((typeof (id) !== 'string' || id === undefined || id === '') || (typeof (auth) !== 'string' || auth === undefined || auth.length <= 1)) return res.sendStatus(400)
   const Rauth: string = auth
@@ -101,7 +101,7 @@ app.get('/database/action/:id/:auth', (req: any, res: any) => {
   })
 })
 
-app.post('/database/action/:id', (req: any, res: any) => {
+app.post('/database/action/:id', (req, res) => {
   const { id } = req.params
   const { auth, value } = req.body
   if ((typeof (id) !== 'string' || id === undefined || id === '') || (typeof (auth) !== 'string' || auth === undefined || auth.length <= 1) || (typeof (value) !== 'object' || value === undefined)) return res.sendStatus(400)
@@ -126,7 +126,7 @@ app.post('/database/action/:id', (req: any, res: any) => {
   })
 })
 
-app.put('/database/action/:id', (req: any, res: any) => {
+app.put('/database/action/:id', (req, res) => {
   const { id } = req.params
   const { auth, newValue, dataId } = req.body
   if ((typeof (id) !== 'string' || id === undefined || id.length <= 0) || (typeof (auth) !== 'string' || auth === undefined || auth.length <= 1) || (typeof (newValue) !== 'object' || newValue === undefined) || (typeof (dataId) !== 'number' || dataId === undefined)) return res.sendStatus(400)
@@ -152,7 +152,7 @@ app.put('/database/action/:id', (req: any, res: any) => {
   })
 })
 
-app.patch('/database/action/:id', (req: any, res: any) => {
+app.patch('/database/action/:id', (req, res) => {
   const { id } = req.params
   const { auth, newValue, dataId } = req.body
   if ((typeof (id) !== 'string' || id === undefined || id.length <= 0) || (typeof (auth) !== 'string' || auth === undefined || auth.length <= 1) || (typeof (newValue) !== 'object' || newValue === undefined) || (typeof (dataId) !== 'number' || dataId === undefined)) return res.sendStatus(400)
@@ -178,7 +178,7 @@ app.patch('/database/action/:id', (req: any, res: any) => {
   })
 })
 
-app.delete('/database/action/:id', (req: any, res: any) => {
+app.delete('/database/action/:id', (req, res) => {
   const { id } = req.params
   const { auth, dataId } = req.body
   if ((typeof (id) !== 'string' || id === undefined || id === '') || (typeof (auth) !== 'string' || auth === undefined || auth.length <= 1) || (typeof (dataId) !== 'number' || dataId === undefined)) return res.sendStatus(400)

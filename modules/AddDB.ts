@@ -18,8 +18,8 @@ async function AddDB (id: string, table: string[]): Promise<string> {
       fs.writeFileSync(`${Formarter.formatPath(config.workingPath)}/databases/${id}.json`, JSON.stringify(value))
       const end = Date.now()
       return `Success Adding Database ${id} [${end - start}ms]`
-    } catch (err: any) {
-      return err
+    } catch (err) {
+      return `${err}`
     }
   }
   try {
@@ -30,7 +30,7 @@ async function AddDB (id: string, table: string[]): Promise<string> {
     } else {
       return await next()
     }
-  } catch (err: string | any) {
+  } catch (err) {
     return await next()
   }
 }
