@@ -36,11 +36,11 @@ getResult().catch(() => {})
 // console.log(await Auth('user', 'admin'))
 // console.log(await UserAccount.checkPermission('wRAuj5c5bjUn6QXEOt', [0, 0, 0, 1, 0]))
 
-const allModules = {
+const GRQDB = {
   AddDB,
   DBWrite,
   DBRead,
   RemoveDB
 }
 
-export default allModules
+export default GRQDB
