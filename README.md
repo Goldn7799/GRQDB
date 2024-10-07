@@ -4,7 +4,7 @@ API Database Service
 # How To Use
 
 ## Installation
-you can install this module using yarn, npm or bun (for typescript project)
+you can install this module using yarn, npm or bun (for typescript project) but may you need BUN to run this script as module or server
 
 **Using Yarn**
 ```

@@ -4,5 +4,5 @@
     "allowedIps": "*",
     "postSizeLimit": "100mb"
   },
-  "express": true
+  "express": false
 }
